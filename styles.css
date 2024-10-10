@@ -93,6 +93,7 @@ body {
     width: fit-content;
     max-width: 80%;
     animation: slide-left 0.3s ease;
+    color: white;
 }
 
 .user-message {
@@ -161,7 +162,7 @@ body {
 }
 @media (max-width: 768px) {
     body{
-        padding: 40px;
+        padding: 20px;
     }
     .container {
         flex-direction: column;
