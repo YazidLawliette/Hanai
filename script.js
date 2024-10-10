@@ -1,9 +1,14 @@
 var question = document.getElementById("question");
 var answer = document.getElementById("answer");
 var history = document.getElementById("history");
-
 var apiUrl = `https://widipe.com/openai`;
-var aiName = "Han So-hee";
+
+question.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        sendReq();
+    }
+});
 
 async function sendReq() {
     const questionText = question.value.trim();
@@ -13,21 +18,9 @@ async function sendReq() {
         return;
     }
 
-    const nameQuestionPattern = /siapa namaku|siapa namamu|apa namamu|namamu|siapa|nama/i;
-    if (nameQuestionPattern.test(questionText)) {
-        const botMessage = document.createElement("p");
-        botMessage.className = "chat-message";
-        botMessage.innerHTML = `Nama aku ${aiName}.`;
-        answer.appendChild(botMessage);
-
-        saveHistory(questionText);
-        const historyItem = document.createElement("p");
-        historyItem.innerHTML = questionText;
-        history.appendChild(historyItem);
-
-        question.value = "";
-        answer.scrollTop = answer.scrollHeight;
-        return; 
+    const placeholder = document.getElementById("placeholder");
+    if (placeholder) {
+        placeholder.style.display = "none";
     }
 
     try {
@@ -49,21 +42,15 @@ async function sendReq() {
 
         const userMessage = document.createElement("p");
         userMessage.className = "user-message";
-        userMessage.innerHTML = questionText; // Menjaga format huruf asli
+        userMessage.innerHTML = questionText;
         answer.appendChild(userMessage);
 
         const botMessage = document.createElement("p");
         botMessage.className = "chat-message";
-        botMessage.innerHTML = data.result;
+        botMessage.innerHTML = handleResponse(data.result, questionText);
         answer.appendChild(botMessage);
 
-        saveHistory(questionText);
-        const historyItem = document.createElement("p");
-        historyItem.innerHTML = questionText;
-        history.appendChild(historyItem);
-
         question.value = "";
-        
         answer.scrollTop = answer.scrollHeight;
 
     } catch (error) {
@@ -71,30 +58,11 @@ async function sendReq() {
     }
 }
 
-function saveHistory(questionText) {
-    let chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
-    chatHistory.push(questionText);
-    localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
-}
-
-window.onload = function() {
-    loadHistory();
-};
-
-function loadHistory() {
-    const savedHistory = JSON.parse(localStorage.getItem('chatHistory'));
-    if (savedHistory) {
-        savedHistory.forEach(item => {
-            const historyItem = document.createElement("p");
-            historyItem.innerHTML = item;
-            history.appendChild(historyItem);
-        });
+function handleResponse(responseText, questionText) {
+    const nameKeywords = /siapa namamu|apa namamu|namamu siapa|siapa nama kamu|namamu|nama/i;
+    if (nameKeywords.test(questionText)) {
+        return "Nama aku Han So-hee.";
     }
-}
 
-question.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault(); 
-        sendReq(); 
-    }
-});
+    return responseText;
+}
