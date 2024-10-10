@@ -1,0 +1,184 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #F2E5BF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    background-color: #fff;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border-radius: 50px;
+}
+
+.sidebar {
+    width: 250px;
+    background-image: url("./image/sohe.jpg");
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-radius: 50px;
+}
+
+
+.sidebar h2 {
+    margin-bottom: 20px;
+}
+
+.sidebar p {
+    background-color: white;
+    color: #007bff;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sidebar p:hover {
+    background-color: #f0f0f0;
+}
+
+.chat-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.chat-box {
+    height: 400px;
+    overflow-y: auto;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chat-box p {
+    background-color: gray;
+    padding: 10px;
+    border-radius: 8px;
+    width: fit-content;
+    max-width: 80%;
+    animation: slide-left 0.3s ease;
+}
+
+.user-message {
+    background-color: gray;
+    color: white;
+    align-self: flex-end;
+    animation: slide-right 0.3s ease;
+}
+
+.input-container {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    gap: 10px;
+}
+
+#question {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.send-btn {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.send-btn:hover {
+    background-color: #0056b3;
+}
+
+.loading {
+    font-style: italic;
+    color: white;
+    text-align: center;
+}
+
+@keyframes slide-left {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-right {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 40px; 
+        background-image: url("./image/sohe.jpg");
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+    }
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%; 
+        border-radius: 10px 10px 0 0;
+        padding: 5px; 
+        background-image: none;
+    }
+
+    .chat-box {
+        height: 300px;
+    }
+
+    .input-container {
+        flex-direction: column; 
+        align-items: stretch; 
+    }
+
+    #question {
+        margin-bottom: 10px; 
+    }
+}
